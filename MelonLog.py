@@ -1,7 +1,9 @@
-import os, sys, urllib.request, time, zipfile
+import os, sys, urllib.request, time, zipfile, subprocess
 from BonkLib import Logging
 
-Logging.StartUp(Tag='MLog')
+os.system('title MelonLog')
+os.system('cls')
+Logging.StartUp(Tag='ADBCheck')
 
 print('Checking for ADB Requirements')
 time.sleep(1)
@@ -25,12 +27,12 @@ else:
             os.remove('Requirements.zip')
         except Exception as e:
             Logging.Error(e)
-            Logging.Info('Failed to unzip Msg Cutie Lewko#4945\n The program will close in 5 seconds.')
+            Logging.Info('Failed to unzip Msg realqt on Discord\n The program will close in 5 seconds.')
             time.sleep(5)
             sys.exit()
     except Exception as e:
         Logging.Error(e)
-        Logging.Info('ADB Requirements Failed to download please Msg Cutie Lewko#4945 on Discord!\n The program will close in 5 seconds.')
+        Logging.Info('ADB Requirements Failed to download please Msg realqt on Discord!\n The program will close in 5 seconds.')
         time.sleep(5)
         sys.exit()
 
@@ -42,16 +44,26 @@ menu = """
 """
 
 def melonLog():
-    mLogging = os.system('adb logcat -v time MelonLoader:D CRASH:D DEBUG:D *:S')
-    Logging.info(mLogging)
-    os.system('pause')
+    command1 = 'adb logcat -v time MelonLoader:D CRASH:D DEBUG:D *:S'
+
+    with open('outputReg.txt', 'wb') as f:
+        process = subprocess.Popen(command1, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for line in process.stdout:
+            print(line.decode('utf-8', errors='replace'), end='')
+            f.write(line) 
 
 def melonlogDebug():
-    mLoggingDebug = os.system('adb logcat -v time MelonLoader:D CRASH:D Mono:D mono:D mono-rt:D Zygote:D A64_HOOK:V DEBUG:D funchook:D Unity:D Binder:D AndroidRuntime:D *:S')
-    Logging.info(mLoggingDebug)
+    command2 = 'adb logcat -v time MelonLoader:D CRASH:D Mono:D mono:D mono-rt:D Zygote:D A64_HOOK:V DEBUG:D funchook:D Unity:D Binder:D AndroidRuntime:D *:S'
+    
+    with open('outputDebug.txt', 'wb') as f:
+        process = subprocess.Popen(command2, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for line in process.stdout:
+            print(line.decode('utf-8', errors='replace'), end='')
+            f.write(line) 
 
 while True:
     try:
+        '''os.system('cls')'''
         print(menu)
         a = int(input('Choose an option: '))
         match a:
@@ -59,8 +71,10 @@ while True:
                 print("Exiting program...")
                 sys.exit()
              case 1:
+                os.system('cls')
                 melonLog()
              case 2:
+                os.system('cls')
                 melonlogDebug()
 
              case _:
