@@ -46,6 +46,8 @@ menu = """
 def melonLog():
     command1 = 'adb logcat -v time MelonLoader:D CRASH:D DEBUG:D *:S'
 
+    Logging.Info("Waiting For Device")
+    os.system("adb wait-for-any-device")
     with open('outputReg.txt', 'wb') as f:
         process = subprocess.Popen(command1, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         for line in process.stdout:
@@ -55,6 +57,8 @@ def melonLog():
 def melonlogDebug():
     command2 = 'adb logcat -v time MelonLoader:D CRASH:D Mono:D mono:D mono-rt:D Zygote:D A64_HOOK:V DEBUG:D funchook:D Unity:D Binder:D AndroidRuntime:D *:S'
     
+    Logging.Info("Waiting For Device")
+    os.system("adb wait-for-any-device")
     with open('outputDebug.txt', 'wb') as f:
         process = subprocess.Popen(command2, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         for line in process.stdout:
