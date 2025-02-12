@@ -14,17 +14,17 @@ if os.path.isfile('adb.exe'):
 else:
     Logging.Warning("The ADB Requirements don't exist!\n Downloading...")
     time.sleep(5)
-    url = 'https://cdn.discordapp.com/attachments/795101766425378856/1087570116151091231/Requirements.zip'
+    url = 'https://server8.uwuclara.dev/adb.zip'
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'}
     req = urllib.request.Request(url, headers=headers)
     try:
         awa = urllib.request.urlopen(req).read()
         try:
-            with open('Requirements.zip', 'wb') as zipfiles:
+            with open('adb.zip', 'wb') as zipfiles:
                 zipfiles.write(awa)
-            with zipfile.ZipFile('Requirements.zip', 'r') as zip_ref:
+            with zipfile.ZipFile('adb.zip', 'r') as zip_ref:
                 zip_ref.extractall()
-            os.remove('Requirements.zip')
+            os.remove('adb.zip')
         except Exception as e:
             Logging.Error(e)
             Logging.Info('Failed to unzip Msg realqt on Discord\n The program will close in 5 seconds.')
